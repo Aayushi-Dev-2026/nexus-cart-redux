@@ -1,69 +1,77 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { PRODUCTS_DATA } from '../data/products';
+import ProductCard from '../components/ProductCard';
+import FilterSidebar from '../components/FilterSidebar';
 
 export default function Home() {
+  const { selectedCategory, maxPrice, searchQuery } = useSelector(
+    (state) => state.filter
+  );
+  const cartQuantity = useSelector((state) => state.cart.totalQuantity);
+
+  // Filter products based on Redux state
+  const filteredProducts = PRODUCTS_DATA.filter((product) => {
+    const matchesCategory =
+      selectedCategory === 'All' || product.category === selectedCategory;
+    const matchesPrice = product.price <= maxPrice;
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesPrice && matchesSearch;
+  });
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{ fontFamily: 'sans-serif', color: '#2d3748' }}>
+      {/* Header */}
+      <header style={headerStyle}>
+        <h1 style={{ margin: 0, fontSize: '1.5rem' }}>🛒 Nexus Cart</h1>
+        <div style={cartBadgeStyle}>
+          Cart Items: <strong>{cartQuantity}</strong>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </header>
+
+      {/* Main Content Layout */}
+      <div style={{ display: 'flex' }}>
+        <FilterSidebar />
+        <main style={{ flex: 1, padding: '24px' }}>
+          <h2 style={{ marginTop: 0 }}>Products Catalog ({filteredProducts.length})</h2>
+          {filteredProducts.length === 0 ? (
+            <p style={{ color: '#718096' }}>No products match your selected filters.</p>
+          ) : (
+            <div style={gridStyle}>
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
     </div>
   );
 }
+
+const headerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '16px 24px',
+  backgroundColor: '#2b6cb0',
+  color: '#fff',
+};
+
+const cartBadgeStyle = {
+  backgroundColor: '#2c5282',
+  padding: '6px 14px',
+  borderRadius: '20px',
+  fontSize: '0.95rem',
+};
+
+const gridStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+  gap: '20px',
+  marginTop: '20px',
+};
