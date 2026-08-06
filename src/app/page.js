@@ -1,18 +1,20 @@
 'use client';
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PRODUCTS_DATA } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import FilterSidebar from '../components/FilterSidebar';
+import CartDrawer from '../components/CartDrawer';
+import { toggleCart } from '../redux/slices/cartSlice';
 
 export default function Home() {
+  const dispatch = useDispatch();
   const { selectedCategory, maxPrice, searchQuery } = useSelector(
     (state) => state.filter
   );
   const cartQuantity = useSelector((state) => state.cart.totalQuantity);
 
-  // Filter products based on Redux state
   const filteredProducts = PRODUCTS_DATA.filter((product) => {
     const matchesCategory =
       selectedCategory === 'All' || product.category === selectedCategory;
@@ -28,9 +30,9 @@ export default function Home() {
       {/* Header */}
       <header style={headerStyle}>
         <h1 style={{ margin: 0, fontSize: '1.5rem' }}>🛒 Nexus Cart</h1>
-        <div style={cartBadgeStyle}>
+        <button onClick={() => dispatch(toggleCart())} style={cartBadgeButtonStyle}>
           Cart Items: <strong>{cartQuantity}</strong>
-        </div>
+        </button>
       </header>
 
       {/* Main Content Layout */}
@@ -49,6 +51,9 @@ export default function Home() {
           )}
         </main>
       </div>
+
+      {/* Cart Drawer Modal */}
+      <CartDrawer />
     </div>
   );
 }
@@ -62,11 +67,14 @@ const headerStyle = {
   color: '#fff',
 };
 
-const cartBadgeStyle = {
+const cartBadgeButtonStyle = {
   backgroundColor: '#2c5282',
-  padding: '6px 14px',
+  color: '#fff',
+  border: 'none',
+  padding: '8px 16px',
   borderRadius: '20px',
   fontSize: '0.95rem',
+  cursor: 'pointer',
 };
 
 const gridStyle = {
