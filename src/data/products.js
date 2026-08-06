@@ -13,7 +13,8 @@ export const PRODUCTS_DATA = [
     price: 8499,
     category: 'Furniture',
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1580481072645-022f9a6d83d0?w=500&q=80',
+    // Updated working Unsplash image link:
+    image: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&q=80',
   },
   {
     id: 'p3',
