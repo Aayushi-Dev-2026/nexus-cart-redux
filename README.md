@@ -131,6 +131,6 @@ npm run dev
 ---
 
 ## 🔗 Live Demo
-**View the site live here:** [Insert your Vercel or Netlify link here]
+**View the site live here:** [https://nexus-cart-redux.vercel.app/]
 
 ---
