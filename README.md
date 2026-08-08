@@ -100,3 +100,32 @@ npm run dev
 * **filterSlice:** Tracks selectedCategory, maxPrice, and searchQuery. Contains reducers to reset and dynamically calculate visible products.
 
 * **ReduxProvider:** Bypasses Server-Component limitations in Next.js App Router by establishing a clean Client-Side Context boundary.
+
+---
+
+## 📸 Application Screenshots
+
+### 1. Product Catalog & Grid Layout
+![Product Catalog Layout](product-catalog.png)
+
+---
+
+### 2. Interactive Real-Time Filtering
+![Filtered Results View](filtered-results.png)
+
+---
+
+### 3. Shopping Cart Drawer & State Management
+![Cart Drawer Open State](cart-drawer-open.png)
+
+---
+
+### 4. Empty Filter State & Fallback UI
+![Empty State Fallback](empty-filter-state.png)
+
+---
+
+## 🔗 Live Demo
+**View the site live here:** [Insert your Vercel or Netlify link here]
+
+---
