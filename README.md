@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 Nexus Cart — State Management SPA (Redux Toolkit)
 
-## Getting Started
+Welcome to **Nexus Cart**, a high-performance Single Page Application (SPA) built with **Next.js 15 App Router** and **Redux Toolkit (RTK)**. 
 
-First, run the development server:
+This project is built under **Track A: State Management Application**, focusing on centralized immutable state architecture, dynamic catalog filtering, real-time total calculations, and an interactive slide-over cart drawer.
+
+---
+
+## 🌟 Key Features
+
+* **Centralized State Management**: Powered by `@reduxjs/toolkit` and `react-redux` for structured global state across the app.
+
+* **Dynamic Product Catalog**: Displays mock e-commerce items with ratings, prices, and categories.
+
+* **Multi-Criteria Filtering**: Filter products dynamically by **Search Query**, **Category**, and **Max Price Range** in real-time.
+
+* **Interactive Shopping Cart Drawer**: Slide-over modal interface to manage items (`Add`, `Remove`, `Increment`, `Decrement`, `Clear Cart`).
+
+* **Instant State Synchronicity**: Cart badge counter and pricing totals update instantaneously across all UI components.
+
+* **Responsive & Clean UI**: Styled with modern CSS-in-JS utility patterns for seamless cross-device layout.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | Next.js 15 (App Router) |
+| **State Management** | Redux Toolkit (`@reduxjs/toolkit`, `react-redux`) |
+| **Language** | JavaScript (ES6+) / React 19 |
+| **Styling** | Modular Inline Style Objects / CSS3 |
+| **Version Control** | Git & GitHub |
+
+---
+
+## 📂 Directory Structure
+
+```text
+nexus-cart-redux/
+├── src/
+│   ├── app/
+│   │   ├── layout.js          # Root layout wrapped with ReduxProvider
+│   │   ├── page.js            # Main home catalog page & layout orchestration
+│   │   └── globals.css        # Global CSS styling baseline
+│   ├── components/
+│   │   ├── ProductCard.js     # Individual product UI & Add-to-Cart trigger
+│   │   ├── FilterSidebar.js   # Real-time search, category & price filters
+│   │   └── CartDrawer.js      # Slide-over cart modal & quantity controls
+│   ├── data/
+│   │   └── products.js        # Mock e-commerce product dataset
+│   ├── providers/
+│   │   └── ReduxProvider.js   # Client component wrapper for Redux Store
+│   └── redux/
+│       ├── store.js           # Centralized RTK Store configuration
+│       └── slices/
+│           ├── cartSlice.js   # State & reducers for Shopping Cart
+│           └── filterSlice.js # State & reducers for Dynamic Filtering
+├── public/                    # Static UI assets & media
+├── package.json               # Dependencies & project metadata
+└── README.md                  # Project documentation
+```
+
+---
+
+## 🚀 Getting Started :
+**Follow these steps to run the application locally on your machine:**
+
+### 1. Clone the Repository
+
+```bash
+git clone [https://github.com/Aayushi-Dev-2026/nexus-cart-redux.git](https://github.com/Aayushi-Dev-2026/nexus-cart-redux.git)
+cd nexus-cart-redux
+```
+
+---
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Open http://localhost:3000 in your browser to view the application live!**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 Redux Architecture Highlights
 
-## Learn More
+* **cartSlice:** Tracks items[], totalQuantity, totalAmount, and isCartOpen. Handles atomic actions like addToCart, decreaseQuantity, removeFromCart, clearCart, and toggleCart.
 
-To learn more about Next.js, take a look at the following resources:
+* **filterSlice:** Tracks selectedCategory, maxPrice, and searchQuery. Contains reducers to reset and dynamically calculate visible products.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* **ReduxProvider:** Bypasses Server-Component limitations in Next.js App Router by establishing a clean Client-Side Context boundary.
