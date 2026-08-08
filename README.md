@@ -125,6 +125,11 @@ npm run dev
 
 ---
 
+### 5. Successful Checkout Flow (Redux State Mutation Proof)
+![Successful Checkout Confirmation](checkout-success.png)
+
+---
+
 ## 🔗 Live Demo
 **View the site live here:** [Insert your Vercel or Netlify link here]
 
